@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +25,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/task")
+@CrossOrigin(origins = "*")
 @Validated
 public class TaskController {
     
@@ -62,7 +64,7 @@ public class TaskController {
 
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<Task>> findAllByUserId(@PathVariable Long userId) {
-        this.userService.findById(userId);
+        //this.userService.findById(userId);
         List<Task> tasks = this.taskService.findAllById(userId);
         return ResponseEntity.ok().body(tasks);
     }

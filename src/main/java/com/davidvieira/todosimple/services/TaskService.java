@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.davidvieira.todosimple.models.Task;
 import com.davidvieira.todosimple.models.User;
 import com.davidvieira.todosimple.repositories.TaskRepository;
+import com.davidvieira.todosimple.services.exceptions.DataBindingViolationException;
+import com.davidvieira.todosimple.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class TaskService {
@@ -23,7 +25,7 @@ public class TaskService {
     @Transactional
     public Task findById(long id) {
         Optional<Task> task = this.taskRepository.findById(id);
-        return task.orElseThrow(()-> new RuntimeException(
+        return task.orElseThrow(()-> new ObjectNotFoundException(
             "Task not found. id: " + ", Type: " + Task.class.getName()
         ));
     }
@@ -54,7 +56,7 @@ public class TaskService {
         try {
             this.taskRepository.deleteById(id);
         } catch (Exception e) {
-            throw new RuntimeException("Not can delete.");
+            throw new DataBindingViolationException("Not can delete.");
         }
     }
 

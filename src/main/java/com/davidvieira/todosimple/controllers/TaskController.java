@@ -31,7 +31,6 @@ public class TaskController {
     
     @Autowired
     private TaskService taskService;
-    private UserService userService;
 
     @GetMapping("/{id}")
     public ResponseEntity<Task> findbyId(@PathVariable Long id) {
